@@ -1,7 +1,6 @@
 # Inventory Management System
 
-## Author
-Muddasir Haider Khan
+### Author: Muddasir Haider Khan
 
 ## Table of Contents
 1. [Introduction](#introduction)
