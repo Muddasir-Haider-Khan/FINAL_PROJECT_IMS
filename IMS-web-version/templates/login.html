@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form method="POST" action="{{ url_for('do_login') }}">
+    <label for="username"><i class="fas fa-user icon"></i> Username:</label>
+    <input type="text" name="username" required>
+    <label for="password"><i class="fas fa-lock icon"></i> Password:</label>
+    <input type="password" name="password" required>
+    <button type="submit"><i class="fas fa-sign-in-alt icon"></i> Login</button>
+</form>
+{% endblock %}

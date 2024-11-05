@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .receipt-container {
+            width: 300px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+        }
+        .receipt-header {
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .receipt-header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .receipt-header p {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #666;
+        }
+        .receipt-table {
+            width: 100%;
+            margin: 10px 0;
+            border-collapse: collapse;
+        }
+        .receipt-table th, .receipt-table td {
+            text-align: left;
+            padding: 5px;
+            border-bottom: 1px dashed #ddd;
+        }
+        .receipt-table th {
+            font-weight: normal;
+            color: #666;
+        }
+        .receipt-footer {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .thank-you {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+        .print-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .print-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <div class="receipt-header">
+            <h2>Your Shop Name</h2>
+            <p>1234 Sample St, City, Country</p>
+            <p>Receipt #{{ receipt_number }}</p>
+            <p>{{ date }}</p>
+        </div>
+
+        <table class="receipt-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in bill %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="receipt-footer">
+            <p>Total Amount: ${{ total_amount }}</p>
+        </div>
+
+        <p class="thank-you">Thank you for shopping with us!</p>
+        <button onclick="window.print()" class="print-button">Print Receipt</button>
+    </div>
+</body>
+</html>

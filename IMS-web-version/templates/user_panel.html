@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Panel</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease-in-out;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s forwards;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+        }
+        .logout-button {
+            padding: 10px 15px;
+            background-color: #ff5c5c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .logout-button:hover {
+            background-color: #ff3333;
+        }
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            animation: slideUp 0.6s ease forwards;
+        }
+        .product-table thead th {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px;
+            text-align: center;
+        }
+        .product-table tbody td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .product-table input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .product-table input[type="checkbox"] {
+            cursor: pointer;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .submit-button:hover {
+            background-color: #218838;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="window.location.href='{{ url_for('logout') }}'" class="logout-button">Logout</button>
+        <h1>User Panel</h1>
+        <h2>Available Products</h2>
+        <form action="{{ url_for('generate_bill') }}" method="POST">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Quantity</th>
+                        <th>Select</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product[0] }}</td>
+                        <td>{{ product[1] }}</td>
+                        <td>{{ product[2] }}</td>
+                        <td>${{ product[3] }}</td>
+                        <td>{{ product[4] }}</td>
+                        <td><input type="number" name="quantities" min="1" max="{{ product[4] }}" placeholder="Qty"></td>
+                        <td><input type="checkbox" name="items" value="{{ product[0] }}"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="submit-button">Generate Bill</button>
+        </form>
+    </div>
+</body>
+</html>
